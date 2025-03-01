@@ -11,7 +11,7 @@
         background-color: #93b5ff;
       }
       canvas {
-        margin-top: 30px;
+        margin-top: 15px;
         background-color: #ddd;
         cursor: pointer;
       }
@@ -44,6 +44,12 @@
         background-color: #b3e3ff;
         border: none;
         border-radius: 10px;
+        font-weight: bold;
+      }
+      #blockType {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 15px;
       }
     </style>
   </head>
@@ -53,12 +59,13 @@
       <div class="nameText">맵 이름</div>
       <input type="text" class="nameInpt" value="New Map">
     </div>
+    <div id="blockType"></div>
     <canvas id="canvas"></canvas>
 
     <div class="controls">
       <button onclick="saveMap()" class="mapbtn">맵 저장</button>
       <button onclick="clearMap()" class="mapbtn">맵 초기화</button>
-      <input type="file" onclick="loadMap()" class="mapbtn">맵 불러오기
+      <button onclick="loadMap()" class="mapbtn">맵 불러오기</button>
     </div>
 
     <script src="map-maker.js"></script>

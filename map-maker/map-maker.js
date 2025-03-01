@@ -65,8 +65,8 @@ canvas.addEventListener("mousedown", () => {
 });
 
 // 마우스 떼기 -> 블록 추가 중지
-canvas.addEventListener('mouseup', () => {
-  clearInterval(addBlock)
+document.addEventListener('mouseup', () => {
+  if (!!addBlock) clearInterval(addBlock)
 })
 
 // 🔥 맵 그리기
@@ -138,6 +138,28 @@ function saveMap() {
 // 맵 초기화
 function clearMap() {
   map.blocks = []
+  drawMap()
+}
+
+//맵 불러오기
+function loadMap() {
+  load = document.createElement('input')
+  load.type = 'file'
+  load.accept = '.json'
+  load.addEventListener('change', (ev) => {
+    file = ev.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        map = JSON.parse(e.target.result)
+        document.querySelector('.nameInpt').value = map.name
+      }
+      reader.readAsText(file)
+    }
+    load.remove()
+  })
+  load.click()
+  drawMap()
 }
 
 // 초기 화면 설정
