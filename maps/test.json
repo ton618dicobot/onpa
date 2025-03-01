@@ -1,0 +1,146 @@
+{
+  "name": "test",
+  "blocks": [
+    {
+      "x": 120,
+      "y": 320,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 280,
+      "y": 480,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 480,
+      "y": 480,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 640,
+      "y": 520,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 800,
+      "y": 400,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 840,
+      "y": 240,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 720,
+      "y": 160,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 520,
+      "y": 160,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 360,
+      "y": 160,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 280,
+      "y": 280,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 200,
+      "y": 360,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 160,
+      "y": 440,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 80,
+      "y": 400,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 40,
+      "y": 240,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 80,
+      "y": 160,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 240,
+      "y": 200,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 360,
+      "y": 200,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 480,
+      "y": 320,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 600,
+      "y": 360,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    },
+    {
+      "x": 680,
+      "y": 360,
+      "size": 40,
+      "type": "normal",
+      "color": "black"
+    }
+  ],
+  "playerPos": []
+}
