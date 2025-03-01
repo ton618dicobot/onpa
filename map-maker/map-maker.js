@@ -135,6 +135,11 @@ function saveMap() {
   download.remove()
 }
 
+// 맵 초기화
+function clearMap() {
+  map.blocks = []
+}
+
 // 초기 화면 설정
 updateBlockTypeDisplay();
 drawMap();
