@@ -50,17 +50,24 @@ canvas.addEventListener("mousemove", (event) => {
 });
 
 // 🔵 마우스 클릭 → 블록 추가
-canvas.addEventListener("click", () => {
-  if (!map.blocks.some((b) => b.x === mouseX && b.y === mouseY)) {
-    map.blocks.push({
-      x: mouseX,
-      y: mouseY,
-      size: tileSize,
-      type: blocksInfo[currentBlockIndex].type,
-    });
-    drawMap();
-  }
+canvas.addEventListener("mousedown", () => {
+  addBlock = setInterval(() => {
+    if (!map.blocks.some((b) => b.x === mouseX && b.y === mouseY)) {
+      map.blocks.push({
+        x: mouseX,
+        y: mouseY,
+        size: tileSize,
+        type: blocksInfo[currentBlockIndex].type,
+      });
+      drawMap();
+    }
+  }, 10)
 });
+
+// 마우스 떼기 -> 블록 추가 중지
+canvas.addEventListener('mouseup', () => {
+  clearInterval(addBlock)
+})
 
 // 🔥 맵 그리기
 function drawMap() {
@@ -116,6 +123,16 @@ function drawMap() {
   }
 
   ctx.globalAlpha = 1.0; // 투명도 원래대로 복원
+}
+
+// 맵 다운로드
+function saveMap() {
+  map.name = document.querySelector('.nameInpt').value
+  download = document.createElement('a')
+  download.href = URL.createObjectURL(new Blob([JSON.stringify(map, null, 2)], { type: 'application.json' }))
+  download.download = map.name + '.json'
+  download.click()
+  download.remove()
 }
 
 // 초기 화면 설정
