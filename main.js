@@ -1,8 +1,18 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth - 100;
-canvas.height = window.innerHeight - 100;
+// username 불러오기
+username = localStorage.username
+if (username == undefined) {
+    let username = 'Player'
+    for (let i = 0; i < 4; i++) username += Math.floor(Math.random() * 9) + 1
+    document.querySelector('.putInUsername').value = username
+    localStorage.username = username
+}
+else document.querySelector('.putInUsername').value = username
+
+canvas.width = 1080 * 26 / 27
+canvas.height = 607.5 * 14 / 15
 
 var socket = io(); // 소켓 연결
 
@@ -11,8 +21,8 @@ var players = {};
 
 // 내 캐릭터 정보
 var myPlayer = {
-  x: 200,
-  y: 200,
+  x: 0,
+  y: 0,
   width: 30,
   height: 45,
   color: "#" + Math.floor(Math.random() * 16777215).toString(16), // 랜덤 색상
@@ -21,6 +31,7 @@ var myPlayer = {
   gravity: 0.5,
   deltaY: 0,
   success: 0,
+  username: username,
 };
 
 // 블록 종류에 따른 색
@@ -57,6 +68,8 @@ socket.on("newMap", function (newMap) {
     ...newMap,
     blocks: newMap.blocks.map((b) => new Block(b.x, b.y, b.size, b.type)),
   };
+  myPlayer.x = map.startPos.x
+  myPlayer.y = map.startPos.y
 });
 
 // 서버에 내 캐릭터 정보 전송
@@ -97,48 +110,55 @@ function movePlayer() {
 
   let isOnGround = false;
 
+  // 좌측 벽 감지
+  if (newX < 0) newX = 0
+  // 우측 벽 감지
+  if (newX + myPlayer.width > canvas.width) newX = canvas.width - myPlayer.width
+
   for (const block of map.blocks) {
-    // 🔵 상단 충돌 감지 (블록 위 착지)
-    if (
-      newX + myPlayer.width > block.x &&
-      newX < block.x + block.size &&
-      myPlayer.y + myPlayer.height <= block.y && // 이전 프레임에서 위에 있었는지 확인
-      newY + myPlayer.height > block.y // 새로운 위치가 블록과 겹치는지 확인
-    ) {
-      newY = block.y - myPlayer.height; // 블록 위에 올려놓기
-      myPlayer.deltaY = 0;
-      isOnGround = true;
-    }
+    if (block.type == 'normal') {
+      // 🔵 상단 충돌 감지 (블록 위 착지)
+      if (
+        newX + myPlayer.width > block.x &&
+        newX < block.x + block.size &&
+        myPlayer.y + myPlayer.height <= block.y && // 이전 프레임에서 위에 있었는지 확인
+        newY + myPlayer.height > block.y // 새로운 위치가 블록과 겹치는지 확인
+      ) {
+        newY = block.y - myPlayer.height; // 블록 위에 올려놓기
+        myPlayer.deltaY = 0;
+        isOnGround = true;
+      }
 
-    // 🔴 하단 충돌 감지 (머리 부딪힘)
-    if (
-      newX + myPlayer.width > block.x &&
-      newX < block.x + block.size &&
-      myPlayer.y > block.y + block.size && // 이전 프레임에서 아래에 있었는지 확인
-      newY < block.y + block.size
-    ) {
-      newY = block.y + block.size; // 블록 아래로 튕겨나감
-      myPlayer.deltaY = 1; // 살짝 밀어줌
-    }
+      // 🔴 하단 충돌 감지 (머리 부딪힘)
+      if (
+        newX + myPlayer.width > block.x &&
+        newX < block.x + block.size &&
+        myPlayer.y > block.y + block.size && // 이전 프레임에서 아래에 있었는지 확인
+        newY < block.y + block.size
+      ) {
+        newY = block.y + block.size; // 블록 아래로 튕겨나감
+        myPlayer.deltaY = 1; // 살짝 밀어줌
+      }
 
-    // 🟠 왼쪽 충돌 감지 (벽 충돌)
-    if (
-      myPlayer.x + myPlayer.width <= block.x && // 이전 프레임에서 왼쪽에 있었는지 확인
-      newX + myPlayer.width > block.x &&
-      myPlayer.y + myPlayer.height > block.y &&
-      myPlayer.y < block.y + block.size
-    ) {
-      newX = block.x - myPlayer.width; // 왼쪽 벽에서 멈춤
-    }
+      // 🟠 왼쪽 충돌 감지 (벽 충돌)
+      if (
+        myPlayer.x + myPlayer.width <= block.x && // 이전 프레임에서 왼쪽에 있었는지 확인
+        newX + myPlayer.width > block.x &&
+        myPlayer.y + myPlayer.height > block.y &&
+        myPlayer.y < block.y + block.size
+      ) {
+        newX = block.x - myPlayer.width; // 왼쪽 벽에서 멈춤
+      }
 
-    // 🟣 오른쪽 충돌 감지 (벽 충돌)
-    if (
-      myPlayer.x >= block.x + block.size && // 이전 프레임에서 오른쪽에 있었는지 확인
-      newX < block.x + block.size &&
-      myPlayer.y + myPlayer.height > block.y &&
-      myPlayer.y < block.y + block.size
-    ) {
-      newX = block.x + block.size; // 오른쪽 벽에서 멈춤
+      // 🟣 오른쪽 충돌 감지 (벽 충돌)
+      if (
+        myPlayer.x >= block.x + block.size && // 이전 프레임에서 오른쪽에 있었는지 확인
+        newX < block.x + block.size &&
+        myPlayer.y + myPlayer.height > block.y &&
+        myPlayer.y < block.y + block.size
+      ) {
+        newX = block.x + block.size; // 오른쪽 벽에서 멈춤
+      }
     }
   }
 
@@ -154,6 +174,11 @@ function movePlayer() {
   if (!isOnGround) {
     myPlayer.deltaY += myPlayer.gravity;
   }
+  if (myPlayer.y > canvas.height + 4 * myPlayer.height) {
+    myPlayer.x = map.startPos.x
+    myPlayer.y = map.startPos.y
+    myPlayer.deltaY = 0
+  }
 }
 
 // 🌟 서버에서 모든 플레이어 정보 수신 (새로운 플레이어 포함)
@@ -165,6 +190,8 @@ socket.on("updatePlayers", function (serverPlayers) {
 // 모든 플레이어 및 블록 다시 그리기
 function drawPlayers() {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // 화면 초기화
+  ctx.font = 'bold 15px Arial'
+  ctx.textAlign = 'center'
 
   // 블록 먼저 그리기
   for (let block of map.blocks) {
@@ -176,6 +203,7 @@ function drawPlayers() {
     let player = players[id];
     ctx.fillStyle = player.color;
     ctx.fillRect(player.x, player.y, player.width, player.height);
+    ctx.fillText(player.username, player.x + 15, player.y - 10)
   }
 
   // 내 플레이어 그리기

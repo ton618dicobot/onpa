@@ -4,38 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>맵 메이커</title>
-    <style>
-      body {
-        text-align: center;
-        font-family: Arial, sans-serif;
-      }
-      canvas {
-        background-color: #ddd;
-        cursor: pointer;
-      }
-      .controls {
-        margin-top: 10px;
-      }
-      textarea {
-        width: 80%;
-        height: 100px;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <h1>맵 메이커</h1>
+    <div class="nameTool">
+      <div class="nameText">맵 이름</div>
+      <input type="text" class="nameInpt" value="New Map">
+    </div>
+    <div id="blockType"></div>
     <canvas id="canvas"></canvas>
 
     <div class="controls">
-      <button onclick="saveMap()">맵 저장</button>
-      <button onclick="clearMap()">맵 초기화</button>
-      <br /><br />
-      <textarea
-        id="mapData"
-        placeholder="여기에 JSON 데이터를 붙여넣고 '맵 불러오기' 클릭"
-      ></textarea>
-      <br />
-      <button onclick="loadMap()">맵 불러오기</button>
+      <button onclick="saveMap()" class="mapbtn">맵 저장</button>
+      <button onclick="clearMap()" class="mapbtn">맵 초기화</button>
+      <button onclick="loadMap()" class="mapbtn">맵 불러오기</button>
     </div>
 
     <script src="map-maker.js"></script>

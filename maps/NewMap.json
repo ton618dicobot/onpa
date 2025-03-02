@@ -1,0 +1,409 @@
+{
+    "name": "New Map",
+    "blocks": [
+      {
+        "x": 0,
+        "y": 520,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 40,
+        "y": 520,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 80,
+        "y": 520,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 120,
+        "y": 520,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 160,
+        "y": 520,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 320,
+        "y": 520,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 320,
+        "y": 480,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 360,
+        "y": 480,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 200,
+        "y": 520,
+        "size": 40,
+        "type": "spike"
+      },
+      {
+        "x": 240,
+        "y": 520,
+        "size": 40,
+        "type": "spike"
+      },
+      {
+        "x": 280,
+        "y": 520,
+        "size": 40,
+        "type": "spike"
+      },
+      {
+        "x": 360,
+        "y": 520,
+        "size": 40,
+        "type": "flatSpike"
+      },
+      {
+        "x": 400,
+        "y": 520,
+        "size": 40,
+        "type": "flatSpike"
+      },
+      {
+        "x": 400,
+        "y": 480,
+        "size": 40,
+        "type": "obstacle"
+      },
+      {
+        "x": 400,
+        "y": 440,
+        "size": 40,
+        "type": "spike"
+      },
+      {
+        "x": 440,
+        "y": 480,
+        "size": 40,
+        "type": "spike"
+      },
+      {
+        "x": 440,
+        "y": 520,
+        "size": 40,
+        "type": "flatSpike"
+      },
+      {
+        "x": 520,
+        "y": 520,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 560,
+        "y": 520,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 600,
+        "y": 480,
+        "size": 40,
+        "type": "spike"
+      },
+      {
+        "x": 640,
+        "y": 480,
+        "size": 40,
+        "type": "spike"
+      },
+      {
+        "x": 600,
+        "y": 520,
+        "size": 40,
+        "type": "flatSpike"
+      },
+      {
+        "x": 640,
+        "y": 520,
+        "size": 40,
+        "type": "flatSpike"
+      },
+      {
+        "x": 680,
+        "y": 520,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 720,
+        "y": 520,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 760,
+        "y": 480,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 800,
+        "y": 440,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 800,
+        "y": 480,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 760,
+        "y": 520,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 800,
+        "y": 520,
+        "size": 40,
+        "type": "flatSpike"
+      },
+      {
+        "x": 840,
+        "y": 440,
+        "size": 40,
+        "type": "spike"
+      },
+      {
+        "x": 840,
+        "y": 520,
+        "size": 40,
+        "type": "flatSpike"
+      },
+      {
+        "x": 880,
+        "y": 520,
+        "size": 40,
+        "type": "flatSpike"
+      },
+      {
+        "x": 840,
+        "y": 480,
+        "size": 40,
+        "type": "obstacle"
+      },
+      {
+        "x": 880,
+        "y": 480,
+        "size": 40,
+        "type": "obstacle"
+      },
+      {
+        "x": 880,
+        "y": 440,
+        "size": 40,
+        "type": "obstacle"
+      },
+      {
+        "x": 880,
+        "y": 400,
+        "size": 40,
+        "type": "spike"
+      },
+      {
+        "x": 920,
+        "y": 400,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 920,
+        "y": 440,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 960,
+        "y": 400,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 1000,
+        "y": 400,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 1000,
+        "y": 360,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 920,
+        "y": 480,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 960,
+        "y": 440,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 960,
+        "y": 480,
+        "size": 40,
+        "type": "flatSpike"
+      },
+      {
+        "x": 1000,
+        "y": 480,
+        "size": 40,
+        "type": "flatSpike"
+      },
+      {
+        "x": 1000,
+        "y": 440,
+        "size": 40,
+        "type": "obstacle"
+      },
+      {
+        "x": 920,
+        "y": 280,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 880,
+        "y": 280,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 880,
+        "y": 240,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 720,
+        "y": 280,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 680,
+        "y": 320,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 640,
+        "y": 320,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 720,
+        "y": 320,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 680,
+        "y": 360,
+        "size": 40,
+        "type": "flatSpike"
+      },
+      {
+        "x": 560,
+        "y": 160,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 520,
+        "y": 160,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 520,
+        "y": 120,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 520,
+        "y": 200,
+        "size": 40,
+        "type": "flatSpike"
+      },
+      {
+        "x": 480,
+        "y": 320,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 440,
+        "y": 280,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 440,
+        "y": 320,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 360,
+        "y": 120,
+        "size": 40,
+        "type": "obstacle"
+      },
+      {
+        "x": 320,
+        "y": 120,
+        "size": 40,
+        "type": "obstacle"
+      },
+      {
+        "x": 320,
+        "y": 160,
+        "size": 40,
+        "type": "flatSpike"
+      },
+      {
+        "x": 360,
+        "y": 160,
+        "size": 40,
+        "type": "flatSpike"
+      }
+    ],
+    "startPos": {
+      "x": 80,
+      "y": 440
+    },
+    "endPos": {
+      "x": 360,
+      "y": 240
+    }
+  }
