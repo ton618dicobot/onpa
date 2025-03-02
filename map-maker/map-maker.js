@@ -7,10 +7,13 @@ canvas.height = 40 * 14;
 
 // 🟢 블록 종류 정보
 const blocksInfo = [
+  { type: 'start', color: '#70cbff'},
+  { type: 'end', color: '#ff4fd3'},
   { type: "normal", color: "black" },
   { type: "obstacle", color: "red" },
   { type: "spike", color: "blue" },
   { type: "flatSpike", color: "purple" },
+  { type: 'delete', color: '#ff000088'},
 ];
 
 let currentBlockIndex = 0; // 🔥 현재 선택된 블록 타입 인덱스
@@ -19,8 +22,10 @@ let mouseX = 0,
 
 // 🟢 맵 데이터 구조
 let map = {
-  name: "Custom Map",
+  name: "New Map",
   blocks: [],
+  startPos: {},
+  endPos: {}
 };
 
 // 🔵 현재 선택된 블록 타입 표시
@@ -42,7 +47,7 @@ window.addEventListener("keydown", function (event) {
 });
 
 // 🟢 마우스 이동 시 블록 미리보기 업데이트
-canvas.addEventListener("mousemove", (event) => {
+canvas.addEventListener("mousemove", () => {
   const rect = canvas.getBoundingClientRect();
   mouseX = Math.floor((event.clientX - rect.left) / tileSize) * tileSize;
   mouseY = Math.floor((event.clientY - rect.top) / tileSize) * tileSize;
@@ -52,7 +57,14 @@ canvas.addEventListener("mousemove", (event) => {
 // 🔵 마우스 클릭 → 블록 추가
 canvas.addEventListener("mousedown", () => {
   addBlock = setInterval(() => {
-    if (!map.blocks.some((b) => b.x === mouseX && b.y === mouseY)) {
+    if (currentBlockIndex == 0) map.startPos = {x: mouseX, y: mouseY}
+    else if (currentBlockIndex == 1) map.endPos = {x: mouseX, y: mouseY}
+    else if (currentBlockIndex == 6) {
+      if (map.startPos.x == mouseX && map.startPos.y == mouseY) map.startPos = {}
+      else if (map.endPos.x == mouseX && map.endPos.y == mouseY) map.endPos = {}
+      map.blocks = map.blocks.filter(e => e.x != mouseX || e.y != mouseY)
+    }
+    else if (!map.blocks.some((b) => b.x === mouseX && b.y === mouseY)) {
       map.blocks.push({
         x: mouseX,
         y: mouseY,
@@ -74,6 +86,16 @@ function drawMap() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // 기존 블록 그리기
+  if (map.startPos != {}) {
+    ctx.fillStyle = blocksInfo[0].color
+    ctx.fillRect(map.startPos.x, map.startPos.y, 30, 45)
+  }
+    
+  if (map.endPos != {}) {
+    ctx.fillStyle = blocksInfo[1].color
+    ctx.fillRect(map.endPos.x, map.endPos.y, 30, 30)
+  }
+
   map.blocks.forEach((block) => {
     const blockData = blocksInfo.find((b) => b.type === block.type);
     ctx.fillStyle = blockData ? blockData.color : "gray";
@@ -104,7 +126,13 @@ function drawMap() {
   ctx.fillStyle = blocksInfo[currentBlockIndex].color;
   ctx.globalAlpha = 0.5;
 
-  if (blocksInfo[currentBlockIndex].type === "spike") {
+  if (currentBlockIndex == 0) {
+    ctx.fillRect(mouseX, mouseY, 30, 45)
+  }
+  else if (currentBlockIndex == 1) {
+    ctx.fillRect(mouseX, mouseY, 30, 30)
+  }
+  else if (blocksInfo[currentBlockIndex].type === "spike") {
     ctx.beginPath();
     ctx.moveTo(mouseX, mouseY + tileSize);
     ctx.lineTo(mouseX + tileSize / 2, mouseY);
@@ -137,6 +165,8 @@ function saveMap() {
 
 // 맵 초기화
 function clearMap() {
+  map.startPos = {}
+  map.endPos = {}
   map.blocks = []
   drawMap()
 }

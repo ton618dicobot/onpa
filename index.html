@@ -4,29 +4,23 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>멀티플레이 온라인 게임</title>
-    <style>
-      body {
-        margin: 0;
-        overflow: hidden; /* 스크롤 제거 */
-        background-color: #282c34; /* 배경색 추가 */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-      canvas {
-        background-color: white; /* 캔버스 배경색 */
-        border: 2px solid black;
-      }
-    </style>
+    <title>온라인 파쿠르</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <div class="chatStorage">
+      <div class="username">
+        <div class="usernameText">username</div>
+        <input type="text" class="putInUsername">
+        <button class="acceptUsername" onclick="setUsername()">accept</button>
+      </div>
+    </div>
     <canvas id="canvas"></canvas>
 
     <!-- Socket.io 및 jQuery 추가 -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="main.js"></script>
+    <script src="chat.js"></script>
   </body>
 </html>

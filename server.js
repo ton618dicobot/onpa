@@ -16,6 +16,7 @@ http.listen(3000, function () {
 });
 
 var players = {}; // 접속한 플레이어들을 저장할 객체
+var messages = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
 
 io.on("connection", function (socket) {
   console.log("새로운 플레이어 접속:", socket.id);
@@ -25,10 +26,12 @@ io.on("connection", function (socket) {
     players[socket.id] = playerData;
     io.emit("updatePlayers", players);
 
-    const mapData = await loadMap("test");
+    const mapData = await loadMap("NewMap");
     if (mapData) {
       socket.emit("newMap", mapData);
     }
+    // 채팅 기록 전송
+    socket.emit('chatHistory', messages)
   });
 
   // 플레이어 이동 처리
@@ -38,6 +41,13 @@ io.on("connection", function (socket) {
       io.emit("updatePlayers", players);
     }
   });
+
+  // 채팅 기록 저장
+  socket.on('addChat', function(chat) {
+    messages.splice(0, 0, chat)
+    messages.pop()
+    io.emit('addChat', chat)
+  })
 
   // 플레이어가 접속 종료할 경우 제거
   socket.on("disconnect", function () {
