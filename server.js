@@ -26,7 +26,7 @@ io.on("connection", function (socket) {
     players[socket.id] = playerData;
     io.emit("updatePlayers", players);
 
-    const mapData = await loadMap("NewMap");
+    const mapData = await loadMap("aaa");
     if (mapData) {
       socket.emit("newMap", mapData);
     }
@@ -60,8 +60,7 @@ io.on("connection", function (socket) {
 // 🔥 파일을 비동기적으로 불러오는 함수 (fs 사용)
 async function loadMap(mapFile) {
   try {
-    const filePath = path.join(__dirname, "maps", `${mapFile}.json`);
-    const data = await fs.readFile(filePath, "utf-8");
+    const data = await fs.readFile(`maps/${mapFile}.json`, "utf-8");
     return JSON.parse(data);
   } catch (error) {
     console.error("맵 로딩 오류:", error);

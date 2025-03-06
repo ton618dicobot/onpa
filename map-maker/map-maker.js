@@ -10,9 +10,11 @@ const blocksInfo = [
   { type: 'start', color: '#70cbff'},
   { type: 'end', color: '#ff4fd3'},
   { type: "normal", color: "black" },
+  { type: 'ice', color: 'aqua'},
+  { type: 'jump', color: '#00ff00'},
   { type: "obstacle", color: "red" },
-  { type: "spike", color: "blue" },
-  { type: "flatSpike", color: "purple" },
+  { type: "spike", color: "red" },
+  { type: "flatSpike", color: "red" },
   { type: 'delete', color: '#ff000088'},
 ];
 
@@ -44,6 +46,7 @@ window.addEventListener("keydown", function (event) {
       (currentBlockIndex - 1 + blocksInfo.length) % blocksInfo.length; // 이전 블록 타입
   }
   updateBlockTypeDisplay();
+  drawMap()
 });
 
 // 🟢 마우스 이동 시 블록 미리보기 업데이트
@@ -59,7 +62,7 @@ canvas.addEventListener("mousedown", () => {
   addBlock = setInterval(() => {
     if (currentBlockIndex == 0) map.startPos = {x: mouseX, y: mouseY}
     else if (currentBlockIndex == 1) map.endPos = {x: mouseX, y: mouseY}
-    else if (currentBlockIndex == 6) {
+    else if (currentBlockIndex == 8) {
       if (map.startPos.x == mouseX && map.startPos.y == mouseY) map.startPos = {}
       else if (map.endPos.x == mouseX && map.endPos.y == mouseY) map.endPos = {}
       map.blocks = map.blocks.filter(e => e.x != mouseX || e.y != mouseY)
@@ -78,7 +81,7 @@ canvas.addEventListener("mousedown", () => {
 
 // 마우스 떼기 -> 블록 추가 중지
 document.addEventListener('mouseup', () => {
-  if (!!addBlock) clearInterval(addBlock)
+  if (!!window.addBlock) clearInterval(addBlock)
 })
 
 // 🔥 맵 그리기

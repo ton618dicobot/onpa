@@ -8,12 +8,15 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div class="chatStorage">
-      <div class="username">
+    <div class="leftScreen">
+      <div class="setting">
         <div class="usernameText">username</div>
         <input type="text" class="putInUsername">
-        <button class="acceptUsername" onclick="setUsername()">accept</button>
+        <div class="usernameText">color</div>
+        <input type="text" class="putInColor">
+        <button class="settingBtn" onclick="changeSetting()">accept</button>
       </div>
+      <div class="chatStorage"></div>
     </div>
     <canvas id="canvas"></canvas>
 

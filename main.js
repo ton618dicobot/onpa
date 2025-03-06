@@ -11,6 +11,21 @@ if (username == undefined) {
 }
 else document.querySelector('.putInUsername').value = username
 
+// RGB 확인
+function testRGB(co) {
+  regex = /^([0-9A-Fa-f]{6})$/;
+  if (regex.test(co)) return '#' + co.toUpperCase()
+  regex = /^#([0-9A-Fa-f]{6})$/;
+  if (regex.test(co)) return co.toUpperCase()
+  return "#" + Math.floor(Math.random() * 16777215).toString(16) // 랜덤 색상
+}
+
+// color 불러오기
+color = testRGB(localStorage.color)
+localStorage.color = color
+document.querySelector('.putInColor').value = color
+document.querySelector('.putInColor').style.color = color
+
 canvas.width = 1080 * 26 / 27
 canvas.height = 607.5 * 14 / 15
 
@@ -25,22 +40,37 @@ var myPlayer = {
   y: 0,
   width: 30,
   height: 45,
-  color: "#" + Math.floor(Math.random() * 16777215).toString(16), // 랜덤 색상
+  color: color,
   speed: 5, // 이동 속도 (고정값)
   jumpPower: 15,
   gravity: 0.5,
+  moveX: 0,
   deltaY: 0,
   success: 0,
   username: username,
+  onIce: false,
 };
+
+// 데스블록
+function death() {
+  myPlayer.x = map.startPos.x
+  myPlayer.y = map.startPos.y
+  myPlayer.deltaY = 0
+  myPlayer.onIce = false
+  myPlayer.moveX = 0
+}
 
 // 블록 종류에 따른 색
 const blocksInfo = [
-  { type: "normal", color: "black", order: 0 },
-  { type: "obstacle", color: "red", order: 1 },
-  { type: "spike", color: "red", order: 2 },
-  { type: "flatSpike", color: "red", order: 3 },
+  { type: "normal", color: "black" },
+  { type: 'ice', color: 'aqua' },
+  { type: 'jump', color: '#00ff00'},
+  { type: "obstacle", color: "red" },
+  { type: "spike", color: "red" },
+  { type: "flatSpike", color: "red" },
 ];
+// 물리 판정 있는 블록
+const physicBlocks = ['normal', 'ice', 'jump']
 
 // 기본 블록 클래스
 class Block {
@@ -56,7 +86,26 @@ class Block {
 
   draw(ctx) {
     ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.size, this.size);
+    if (this.type === "spike") {
+      // 🔺 위쪽 방향 가시 (삼각형)
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y + this.size); // 왼쪽 아래
+      ctx.lineTo(this.x + this.size / 2, this.y); // 위쪽 꼭짓점
+      ctx.lineTo(this.x + this.size, this.y + this.size); // 오른쪽 아래
+      ctx.closePath();
+      ctx.fill();
+    } else if (this.type === "flatSpike") {
+      // 🔻 아래쪽 방향 가시 (삼각형)
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y); // 왼쪽 위
+      ctx.lineTo(this.x + this.size / 2, this.y + this.size); // 아래쪽 꼭짓점
+      ctx.lineTo(this.x + this.size, this.y); // 오른쪽 위
+      ctx.closePath();
+      ctx.fill();
+    } else {
+      // 🟩 일반 블록 (사각형)
+      ctx.fillRect(this.x, this.y, this.size, this.size);
+    }
   }
 }
 
@@ -98,15 +147,43 @@ function updateGame() {
   drawPlayers(); // 캔버스 다시 그리기
 }
 
+// 가시 판정
+function spikeDeath(block, newX, newY) {
+  if (!(
+    newX + myPlayer.width > block.x &&
+    newX < block.x + block.size &&
+    newY + myPlayer.height > block.y &&
+    newY < block.y + block.size
+  )) {
+    return false
+  }
+  // if ((block.x + block.size / 2 - newX - myPlayer.width) * -2 > newY + myPlayer.height) return false
+  // if ((block.x + block.size / 2 - newX) * 2 < newY + myPlayer.height) return false
+  return false
+}
+
+// 역가시 판정
+
+
 // 플레이어 이동 처리 (중력 & 점프 적용)
 function movePlayer() {
   myPlayer.deltaY += myPlayer.gravity; // 중력 적용
 
   let newX = myPlayer.x;
   let newY = myPlayer.y + myPlayer.deltaY;
-
-  if (keys["ArrowRight"]) newX += myPlayer.speed;
-  if (keys["ArrowLeft"]) newX -= myPlayer.speed;
+  if (myPlayer.onIce) {
+    if (keys["ArrowRight"]) myPlayer.moveX += myPlayer.speed * 0.1 / 2;
+    if (keys["ArrowLeft"]) myPlayer.moveX -= myPlayer.speed  * 0.1 / 2;
+    myPlayer.moveX *= 0.98
+  }
+  else {
+    if (keys["ArrowRight"]) myPlayer.moveX += myPlayer.speed * 0.95 / 2;
+    if (keys["ArrowLeft"]) myPlayer.moveX -= myPlayer.speed  * 0.95 / 2;
+    myPlayer.moveX *= 0.7
+  }
+  if (myPlayer.moveX > myPlayer.speed) myPlayer.moveX = myPlayer.speed
+  if (myPlayer.moveX < -myPlayer.speed) myPlayer.moveX = -myPlayer.speed
+  newX += myPlayer.moveX
 
   let isOnGround = false;
 
@@ -116,7 +193,7 @@ function movePlayer() {
   if (newX + myPlayer.width > canvas.width) newX = canvas.width - myPlayer.width
 
   for (const block of map.blocks) {
-    if (block.type == 'normal') {
+    if (physicBlocks.includes(block.type)) {
       // 🔵 상단 충돌 감지 (블록 위 착지)
       if (
         newX + myPlayer.width > block.x &&
@@ -127,6 +204,15 @@ function movePlayer() {
         newY = block.y - myPlayer.height; // 블록 위에 올려놓기
         myPlayer.deltaY = 0;
         isOnGround = true;
+        // 얼음 블록
+        if (block.type == 'ice') myPlayer.onIce = true
+        else myPlayer.onIce = false
+        // 점프 블록
+        if (block.type == 'jump') {
+          myPlayer.deltaY = -1.5 * myPlayer.jumpPower
+          isOnGround = false
+          newY -= 2.5
+        }
       }
 
       // 🔴 하단 충돌 감지 (머리 부딪힘)
@@ -160,7 +246,43 @@ function movePlayer() {
         newX = block.x + block.size; // 오른쪽 벽에서 멈춤
       }
     }
+    // 사각 가시
+    else if (block.type == 'obstacle') {
+      if (
+        newX + myPlayer.width > block.x &&
+        newX < block.x + block.size &&
+        newY + myPlayer.height > block.y &&
+        newY < block.y + block.size
+      ) {
+        death()
+        return
+      }
+    }
+    else if (block.type == 'spike') {
+      // 사각형 판정
+      if (
+        newX + myPlayer.width > block.x &&
+        newX < block.x + block.size &&
+        newY + myPlayer.height > block.y &&
+        newY < block.y + block.size
+       ) {
+        death()
+        return
+      }
+    }
+  else if (block.type == 'flatSpike') {
+    // 사각형 판정
+    if (
+      newX + myPlayer.width > block.x &&
+      newX < block.x + block.size &&
+      newY + myPlayer.height > block.y &&
+      newY < block.y + block.size
+     ) {
+      death()
+      return
+    }
   }
+}
 
   // 🟢 점프 판정 수정: 착지 상태에서만 점프 가능
   if (keys["ArrowUp"] && isOnGround) {
@@ -174,11 +296,9 @@ function movePlayer() {
   if (!isOnGround) {
     myPlayer.deltaY += myPlayer.gravity;
   }
-  if (myPlayer.y > canvas.height + 4 * myPlayer.height) {
-    myPlayer.x = map.startPos.x
-    myPlayer.y = map.startPos.y
-    myPlayer.deltaY = 0
-  }
+  
+  // 낙사 판정
+  if (myPlayer.y > canvas.height + 4 * myPlayer.height) death()
 }
 
 // 🌟 서버에서 모든 플레이어 정보 수신 (새로운 플레이어 포함)
