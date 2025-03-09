@@ -1,9 +1,12 @@
 {
   "scripts": {
-    "serve": "node server.js"
+    "serve": "vite build && node server.js"
   },
   "dependencies": {
     "express": "^4.21.2",
     "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "vite": "^6.2.1"
   }
 }
