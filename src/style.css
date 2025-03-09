@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    overflow: hidden; /* 스크롤 제거 */
+    background-color: #93b5ff; /* 배경색 추가 */
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    user-select: none;
+}
+canvas {
+    background-color: #b3e3ff; /* 캔버스 배경색 */
+    border: 2px solid #0000005b;
+    margin-left: 180px;
+    width: 1280px;
+    border-radius: 30px;
+}
+.leftScreen {
+    width: 250px;
+    height: 100%;
+    background-color: #0000005b;
+}
+.setting {
+    width: 100%;
+    height: 15%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+.usernameText {
+    font-size: 17.5px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.putInUsername {
+    background-color: #b3e3ff;
+    border: none;
+    border-radius: 10px;
+    height: 20px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+.putInColor {
+    background-color: #b3e3ff;
+    border: none;
+    border-radius: 10px;
+    height: 20px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+.settingBtn {
+    width: 75px;
+    height: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: #70cbff;
+    margin-top: 10px;
+}
+.chatStorage {
+    display: flex;
+    flex-direction: column-reverse;
+}
+.chatFrame {
+    margin-bottom: 7.5px;
+}
+.chatUser {
+    margin-left: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+}
+.chatContent {
+    margin-left: 5px;
+    font-size: 16px;
+    color: #ffffff;
+}
+.chatbar {
+    margin-bottom: 20px;
+    margin-left: 5px;
+    width: 225px;
+    height: 22.5px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #b3e3ff;
+}
