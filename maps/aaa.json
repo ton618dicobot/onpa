@@ -1,0 +1,109 @@
+{
+    "name": "New Map",
+    "blocks": [
+      {
+        "x": 320,
+        "y": 400,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 360,
+        "y": 400,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 400,
+        "y": 400,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 440,
+        "y": 400,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 480,
+        "y": 400,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 520,
+        "y": 400,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 560,
+        "y": 400,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 600,
+        "y": 400,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 640,
+        "y": 400,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 680,
+        "y": 400,
+        "size": 40,
+        "type": "spike"
+      },
+      {
+        "x": 720,
+        "y": 400,
+        "size": 40,
+        "type": "spike"
+      },
+      {
+        "x": 280,
+        "y": 280,
+        "size": 40,
+        "type": "flatSpike"
+      },
+      {
+        "x": 240,
+        "y": 280,
+        "size": 40,
+        "type": "flatSpike"
+      },
+      {
+        "x": 280,
+        "y": 400,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 240,
+        "y": 400,
+        "size": 40,
+        "type": "normal"
+      },
+      {
+        "x": 200,
+        "y": 400,
+        "size": 40,
+        "type": "normal"
+      }
+    ],
+    "startPos": {
+      "x": 480,
+      "y": 320
+    },
+    "endPos": {
+      "x": 480,
+      "y": 80
+    }
+  }
