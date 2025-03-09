@@ -45,6 +45,16 @@ window.addEventListener("keydown", function (event) {
     currentBlockIndex =
       (currentBlockIndex - 1 + blocksInfo.length) % blocksInfo.length; // 이전 블록 타입
   }
+  mouseX = Math.round(mouseX / tileSize) * tileSize;
+  mouseY = Math.round(mouseY / tileSize) * tileSize;
+  if (currentBlockIndex == 0) {
+    mouseX += 5
+    mouseY -= 7.5
+  }
+  if (currentBlockIndex == 1) {
+    mouseX += 5
+    mouseY += 5
+  }
   updateBlockTypeDisplay();
   drawMap()
 });
@@ -54,6 +64,14 @@ canvas.addEventListener("mousemove", () => {
   const rect = canvas.getBoundingClientRect();
   mouseX = Math.floor((event.clientX - rect.left) / tileSize) * tileSize;
   mouseY = Math.floor((event.clientY - rect.top) / tileSize) * tileSize;
+  if (currentBlockIndex == 0) {
+    mouseX += 5
+    mouseY -= 7.5
+  }
+  if (currentBlockIndex == 1) {
+    mouseX += 5
+    mouseY += 5
+  }
   drawMap();
 });
 
@@ -63,8 +81,8 @@ canvas.addEventListener("mousedown", () => {
     if (currentBlockIndex == 0) map.startPos = {x: mouseX, y: mouseY}
     else if (currentBlockIndex == 1) map.endPos = {x: mouseX, y: mouseY}
     else if (currentBlockIndex == 8) {
-      if (map.startPos.x == mouseX && map.startPos.y == mouseY) map.startPos = {}
-      else if (map.endPos.x == mouseX && map.endPos.y == mouseY) map.endPos = {}
+      if (map.startPos.x == mouseX + 5 && map.startPos.y == mouseY - 7.5) map.startPos = {}
+      else if (map.endPos.x == mouseX + 5 && map.endPos.y == mouseY + 5) map.endPos = {}
       map.blocks = map.blocks.filter(e => e.x != mouseX || e.y != mouseY)
     }
     else if (!map.blocks.some((b) => b.x === mouseX && b.y === mouseY)) {
@@ -74,8 +92,8 @@ canvas.addEventListener("mousedown", () => {
         size: tileSize,
         type: blocksInfo[currentBlockIndex].type,
       });
-      drawMap();
     }
+    drawMap();
   }, 10)
 });
 
