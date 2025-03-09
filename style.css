@@ -5,6 +5,7 @@ body {
     display: flex;
     align-items: center;
     height: 100vh;
+    user-select: none;
 }
 canvas {
     background-color: #b3e3ff; /* 캔버스 배경색 */
@@ -13,14 +14,14 @@ canvas {
     width: 1280px;
     border-radius: 30px;
 }
-.chatStorage {
+.leftScreen {
     width: 250px;
     height: 100%;
     background-color: #0000005b;
 }
-.username {
+.setting {
     width: 100%;
-    height: 12.5%;
+    height: 15%;
     background-color: #ffffff;
     display: flex;
     justify-content: center;
@@ -39,18 +40,31 @@ canvas {
     border-radius: 10px;
     height: 20px;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
 }
-.acceptUsername {
+.putInColor {
+    background-color: #b3e3ff;
+    border: none;
+    border-radius: 10px;
+    height: 20px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+.settingBtn {
     width: 75px;
     height: 25px;
     font-size: 15px;
     font-weight: bold;
     border-radius: 10px;
     background-color: #70cbff;
+    margin-top: 10px;
+}
+.chatStorage {
+    display: flex;
+    flex-direction: column-reverse;
 }
 .chatFrame {
-    margin-top: 7.5px;
+    margin-bottom: 7.5px;
 }
 .chatUser {
     margin-left: 5px;
@@ -64,7 +78,7 @@ canvas {
     color: #ffffff;
 }
 .chatbar {
-    margin-top: 20px;
+    margin-bottom: 20px;
     margin-left: 5px;
     width: 225px;
     height: 22.5px;

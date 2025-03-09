@@ -16,6 +16,12 @@ function changeSetting() {
     alert('성공적으로 변경했습니다')
 }
 
+//게임 참가
+function playGame() {
+    socket.emit('newPlayer', myPlayer)
+    playing = true
+}
+
 // 채팅바 추가
 chatbar = document.createElement('input')
 chatbar.type = 'text'

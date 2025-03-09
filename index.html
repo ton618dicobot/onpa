@@ -14,7 +14,10 @@
         <input type="text" class="putInUsername">
         <div class="usernameText">color</div>
         <input type="text" class="putInColor">
-        <button class="settingBtn" onclick="changeSetting()">accept</button>
+        <div style="display: flex; flex-direction: row;">
+          <button class="settingBtn" onclick="changeSetting()">accept</button>
+          <button class="settingBtn" style="margin-left: 10px;" onclick="playGame()">참가</button>
+        </div>
       </div>
       <div class="chatStorage"></div>
     </div>
@@ -23,7 +26,11 @@
     <!-- Socket.io 및 jQuery 추가 -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <!-- js 파일 로드 -->
     <script src="main.js"></script>
     <script src="chat.js"></script>
+    <script src="playGame.js"></script>
+    <script src="selectMap.js"></script>
+    <script src="survival.js"></script>
   </body>
 </html>

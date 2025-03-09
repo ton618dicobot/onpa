@@ -2,10 +2,23 @@ var express = require("express");
 var app = express();
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
-const fs = require("fs").promises;
+const fs = require("fs");
 const path = require("path");
 
+let progress = 'game'
+
 app.use(express.static(__dirname)); // 정적 파일 제공
+
+// 🔥 파일을 비동기적으로 불러오는 함수 (fs 사용)
+function loadMap(mapFile) {
+  try {
+    const data = fs.readFileSync(`maps/${mapFile}.json`, "utf-8");
+    return JSON.parse(data);
+  } catch (error) {
+    console.error("맵 로딩 오류:", error);
+    return null;
+  }
+}
 
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
@@ -21,17 +34,18 @@ var messages = [null, null, null, null, null, null, null, null, null, null, null
 io.on("connection", function (socket) {
   console.log("새로운 플레이어 접속:", socket.id);
 
+  socket.emit('progress', progress)
+  socket.emit('chatHistory', messages)
+  const mapData = loadMap("aaa");
+  if (mapData) {
+    socket.emit("newMap", mapData);
+  }
+
   // 새로운 플레이어 등록
-  socket.on("newPlayer", async function (playerData) {
+  socket.on("newPlayer", function (playerData) {
     players[socket.id] = playerData;
     io.emit("updatePlayers", players);
-
-    const mapData = await loadMap("aaa");
-    if (mapData) {
-      socket.emit("newMap", mapData);
-    }
     // 채팅 기록 전송
-    socket.emit('chatHistory', messages)
   });
 
   // 플레이어 이동 처리
@@ -56,14 +70,3 @@ io.on("connection", function (socket) {
     io.emit("updatePlayers", players);
   });
 });
-
-// 🔥 파일을 비동기적으로 불러오는 함수 (fs 사용)
-async function loadMap(mapFile) {
-  try {
-    const data = await fs.readFile(`maps/${mapFile}.json`, "utf-8");
-    return JSON.parse(data);
-  } catch (error) {
-    console.error("맵 로딩 오류:", error);
-    return null;
-  }
-}
