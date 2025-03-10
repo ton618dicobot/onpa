@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "dev": "vite .",
     "serve": "vite build && node server.js"
   },
   "dependencies": {
