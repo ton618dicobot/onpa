@@ -7,12 +7,12 @@ const path = require("path");
 
 let progress = 'game'
 
-app.use(express.static(__dirname)); // 정적 파일 제공
+app.use(express.static(__dirname + "/dist/")); // 정적 파일 제공
 
 // 🔥 파일을 비동기적으로 불러오는 함수 (fs 사용)
 function loadMap(mapFile) {
   try {
-    const data = fs.readFileSync(`maps/${mapFile}.json`, "utf-8");
+    const data = fs.readFileSync(`assets/maps/${mapFile}.json`, "utf-8");
     return JSON.parse(data);
   } catch (error) {
     console.error("맵 로딩 오류:", error);
@@ -21,7 +21,7 @@ function loadMap(mapFile) {
 }
 
 app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/index.html");
+  res.sendFile(__dirname + "/dist/index.html");
 });
 
 http.listen(3000, function () {
