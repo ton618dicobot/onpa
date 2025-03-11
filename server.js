@@ -24,8 +24,10 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/dist/index.html");
 });
 
-http.listen(3000, function () {
-  console.log("Server가 실행 중입니다. 포트번호: 3000");
+const port = 3000
+
+http.listen(port, function () {
+  console.log(`Server가 실행 중입니다. 포트번호: ${port}`);
 });
 
 var players = {}; // 접속한 플레이어들을 저장할 객체
