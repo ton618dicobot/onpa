@@ -28,7 +28,7 @@ function loadPreference() {
     localStorage.username = username
   }
 
-  myPlayer.name = username
+  myPlayer.username = username
   document.querySelector('.putInUsername').value = username
 
   // color 불러오기
