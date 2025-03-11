@@ -31,6 +31,9 @@ export function drawPlayers(ctx) {
     block.draw(ctx, block)
   }
 
+  const playerCount = Object.keys(players).length
+  const successCount = Object.values(players).filter((e) => e.success).length
+
   // 성공 인원 그리기
   ctx.globalAlpha = 0.75
   ctx.fillStyle = '#93b5ff'
@@ -39,7 +42,7 @@ export function drawPlayers(ctx) {
   ctx.fill()
   ctx.globalAlpha = 1
   ctx.fillStyle = '#ffffff'
-  ctx.fillText(`성공 ${Object.values(players).filter((e) => e.success == true).length}/${Object.keys(players).length}`, canvas.width - 81.25, 38.75)
+  ctx.fillText(`성공 ${successCount}/${playerCount}`, canvas.width - 81.25, 38.75)
 
   // 플레이어 그리기
   for (let id in players) {
