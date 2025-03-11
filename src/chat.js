@@ -7,8 +7,8 @@ export function generateChat(socket) {
   const chatbar = document.createElement('input')
   chatbar.type = 'text'
   chatbar.className = 'chatbar'
-  chatbar.addEventListener('keydown', (key) => {
-    if (key.key == 'Enter' && chatbar.value.replaceAll(' ', '') != '') {
+  chatbar.addEventListener('keydown', (ev) => {
+    if (ev.key == 'Enter' && chatbar.value.replaceAll(' ', '') != '') {
       socket.emit('addChat', { username: username, content: chatbar.value, color: color })
       chatbar.value = ''
     }
