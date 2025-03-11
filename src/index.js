@@ -1,6 +1,7 @@
 import { generateChat } from "./chat"
 import { testRGB } from "./utils"
-import { drawPlayers, loadMap, movePlayer, myPlayer } from "./playGame"
+import { drawPlayers, loadMap, myPlayer } from "./playGame"
+import { Player } from "./player"
 
 export let username
 export let playerId
@@ -47,11 +48,30 @@ socket.on('progress', function (data) {
 })
 
 socket.on("updatePlayers", function (serverPlayers) {
-  players = serverPlayers
+  const currentPlayers = new Set(Object.keys(players))
+  const newPlayers = new Set([playerId])
+
+  for (const id in serverPlayers) {
+    if (id === playerId)
+      return
+
+    newPlayers.add(id)
+
+    const playerData = serverPlayers[id]
+
+    if (!(id in players))
+      players[id] = new Player(playerData.username, playerData.color)
+
+    players[id].set(playerData)
+  }
+
+  currentPlayers.difference(newPlayers).forEach(id => {
+    delete players[id]
+  })
 })
 
 socket.on("newMap", function (map) {
-    loadMap(map)
+  loadMap(map)
 })
 
 
@@ -72,7 +92,7 @@ setInterval(updateGame, 1000 / FPS);
 
 function updateGame() {
   if (playing) {
-    movePlayer(ctx)
+    myPlayer.move()
     socket.emit("movePlayer", myPlayer)
   }
   drawPlayers(ctx)
