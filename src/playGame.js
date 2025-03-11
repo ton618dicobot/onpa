@@ -1,4 +1,4 @@
-import { playerId, players, playing } from "."
+import { boardH, boardW, playerId, players, playing } from "."
 import { Block } from "./block/block"
 import { Player } from "./player"
 
@@ -19,7 +19,7 @@ export function loadMap(newMap) {
 
 // 모든 플레이어 및 블록 다시 그리기
 export function drawPlayers(ctx) {
-  ctx.clearRect(0, 0, canvas.width, canvas.height); // 화면 초기화
+  ctx.clearRect(0, 0, boardW, boardH); // 화면 초기화
   ctx.font = 'bold 15px Arial'
   ctx.textAlign = 'center'
 
@@ -38,11 +38,11 @@ export function drawPlayers(ctx) {
   ctx.globalAlpha = 0.75
   ctx.fillStyle = '#93b5ff'
   ctx.beginPath()
-  ctx.roundRect(canvas.width - 137.5, 20, 112.5, 27.5, 30)
+  ctx.roundRect(boardW - 137.5, 20, 112.5, 27.5, 30)
   ctx.fill()
   ctx.globalAlpha = 1
   ctx.fillStyle = '#ffffff'
-  ctx.fillText(`성공 ${successCount}/${playerCount}`, canvas.width - 81.25, 38.75)
+  ctx.fillText(`성공 ${successCount}/${playerCount}`, boardW - 81.25, 38.75)
 
   // 플레이어 그리기
   for (let id in players) {

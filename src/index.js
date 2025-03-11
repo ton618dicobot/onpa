@@ -10,6 +10,9 @@ export let players = {}
 export let playing = false
 export const keys = {}
 
+export const boardW = 1280
+export const boardH = 720 
+
 const FPS = 60
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")

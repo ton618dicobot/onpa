@@ -1,4 +1,4 @@
-import { keys } from "."
+import { boardH, boardW, keys } from "."
 import { map } from "./playGame"
 
 export class Player {
@@ -72,7 +72,7 @@ export class Player {
     // 좌측 벽 감지
     if (newX < 0) newX = 0
     // 우측 벽 감지
-    if (newX + this.width > canvas.width) newX = canvas.width - this.width
+    if (newX + this.width > boardW) newX = boardW - this.width
 
     for (const block of map.blocks) {
       if (block.data.isWall) {
@@ -148,7 +148,7 @@ export class Player {
     }
 
     // 낙사 판정
-    if (this.y > canvas.height + 4 * this.height) this.die()
+    if (this.y > boardH + 4 * this.height) this.die()
   }
 
   draw(ctx) {
